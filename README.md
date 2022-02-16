@@ -1,1 +1,1 @@
-Tech Debt for vp perfomance in freedom UI.
+:leopard: Tech Debt for vp perfomance in freedom UI
