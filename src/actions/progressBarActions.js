@@ -1,0 +1,4 @@
+export const ActionConstants = {
+    DATA_RECEIVED: 'DATA_RECEIVED',
+    SELECTED_PROGRESSBAR: 'SELECTED_PROGRESSBAR'
+  }
