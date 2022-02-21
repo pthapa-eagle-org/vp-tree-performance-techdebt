@@ -1,36 +1,10 @@
 import React from "react";
 import { FixedSizeTree as Tree } from "react-vtree";
-// import { tree } from "./dummyData";
+import AutoSizer from "react-virtualized-auto-sizer";
+//import { tree } from "./dummyData";
+import { tree } from "./shortDummyData";
 import {useStyles } from "./style.js";
 
-
-
-const tree = {
-  name: "Root",
-  id: "root",
-  children: [
-    {
-      children: [
-        { id: "child-1a", name: "Child #1a", children: [
-              { id: "child-1aa", name: "Child #1aa", children: []}
-        ] },
-
-        { id: "child-1b", name: "Child #1b", children: [
-          { id: "child-1bb", name: "Child #1bb", children: [
-            { id: "child-1bbb", name: "Child #1bbb", children: []}
-          ]}
-        ]}
-      ],
-      id: "child-1",
-      name: "Child #1"
-    },
-    {
-      children: [{ id: "child-2a", name: "Child #2a", children: [] }],
-      id: "child-2",
-      name: "Child #2"
-    }
-  ]
-};
 
 function* treeWalker(refresh) {
   const stack = [];
@@ -44,19 +18,22 @@ function* treeWalker(refresh) {
   // Walk through the tree until we have no nodes available.
   while (stack.length !== 0) {
     const { node, nestingLevel } = stack.pop();
-    const { children, id, name } = node;
+    const { children, id, title } = node;
+   
 
     // Here we are sending the information about the node to the Tree component
     // and receive an information about the openness state from it. The
     // `refresh` parameter tells us if the full update of the tree is requested;
     // basing on it we decide to return the full node data or only the node
     // id to update the nodes order.
+   
     const isOpened = yield refresh
       ? {
           id,
           isLeaf: children.length === 0,
-          isOpenByDefault: false,
-          name,
+          isOpenByDefault: true,
+          title,
+          vpItems: children.length === 0 && node.vpItems,
           nestingLevel,
           margin: nestingLevel * 20
         }
@@ -81,14 +58,18 @@ const Node = props => {
   const { data, isOpen, style, toggle } = props;
   const {
     isLeaf,
-    name,
-    margin,    
+    title,
+    margin,  
+    vpItems  
   } = data;
 
   const classes = useStyles();
+  const accordHandler = () => {
+    alert('Clicked on accordian!')
+  }
   return (
     <div
-      className={classes.item}
+      classtitle={classes.item}
       style={{
         ...style,
         alignItems: 'center',
@@ -101,15 +82,22 @@ const Node = props => {
           {isOpen ? "-" : "+"}
         </button>
       )}
-      <div>{name}</div>
+      <div>{title}</div>
+       { vpItems && <div>
+        <button type="button"  onClick={accordHandler} style={{"backgroundColor": "lightblue", "borderRadius": "50px" }}>
+          Accord
+        </button>
+      </div>}
     </div>
   );
 };
 
 export default function App() {
   return (
-  <Tree treeWalker={treeWalker} itemSize={30} height={250} width={600}>
-  {Node}
+   // <AutoSizer disableWidth >
+  <Tree treeWalker={treeWalker} itemSize={50} height={250} width={600}>
+     {Node}
   </Tree>
+ // </AutoSizer>
  );
 }
