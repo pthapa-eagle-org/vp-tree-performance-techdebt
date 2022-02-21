@@ -2,8 +2,8 @@ import React, { useCallback, useEffect, useRef } from "react";
 import AutoSizer from "react-virtualized-auto-sizer";
 import { VariableSizeTree } from "react-vtree";
 import TreePresenter from "./TreePresenter";
-// import { tree } from "./shortDummyData";
-import { tree } from "./dummyData";
+import { tree } from "./shortDummyData";
+// import { tree } from "./dummyData";
 
 const TreeMainComponent = ({ itemSize }) => {
   const treeDom = useRef(null);
