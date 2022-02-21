@@ -10,7 +10,9 @@ import reportWebVitals from './reportWebVitals';
 ReactDOM.render(
   <Provider store={store}>
   <React.StrictMode>
-    <TreeMainComponent />
+  <div style={{ flex: "1 1 0%", minHeight: "100vh" }}>
+    <TreeMainComponent itemSize={30} />
+    </div>
   </React.StrictMode>
   </Provider>,
   document.getElementById('root')
