@@ -11,7 +11,7 @@ ReactDOM.render(
   <Provider store={store}>
   <React.StrictMode>
   <div style={{ flex: "1 1 0%", minHeight: "100vh" }}>
-    <TreeMainComponent itemSize={30} />
+    <TreeMainComponent itemSize={30}/>
     </div>
   </React.StrictMode>
   </Provider>,

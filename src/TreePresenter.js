@@ -1,11 +1,13 @@
 const TreePresenter = ({
-  data: { isLeaf, title, nestingLevel, vpItems },
+  data: { isLeaf, title, nestingLevel, vpItems, id, treeDom },
+  height,
   isOpen,
   style,
   toggle,
+  setOpen
 }) => {
-  const accordHandler = () => {
-    alert("Clicked on accordian!");
+  const accordHandler = (accordData) => {
+    alert(`${accordData}, was clicked!`);
   };
   return (
     <div
@@ -18,7 +20,7 @@ const TreePresenter = ({
     >
       {!isLeaf && (
         <div>
-          <button type="button" onClick={toggle} style={{ marginLeft: 10 }}>
+          <button type="button" onClick={() => setOpen(!isOpen)} style={{ marginLeft: 10 }}>
             {isOpen ? "-" : "+"}
           </button>
         </div>
@@ -28,7 +30,7 @@ const TreePresenter = ({
         <div>
           <button
             type="button"
-            onClick={accordHandler}
+            onClick={() => accordHandler(id)}
             style={{ backgroundColor: "lightblue", borderRadius: "50px" }}
           >
             Accord
