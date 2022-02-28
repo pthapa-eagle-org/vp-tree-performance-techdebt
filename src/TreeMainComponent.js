@@ -8,25 +8,26 @@ import { tree } from "./dummyData";
 
 const TreeMainComponent = ({ itemSize }) => {
   const treeDom = useRef(null);
-  
+  const [treeData, setTreeData] = React.useState(tree);
+  const [expand, setExpand] = React.useState(true);
 
   const treeWalker = useCallback(
     function* treeWalker(refresh) {
-     yield GetNodeData(tree, 0, itemSize);
+      yield GetNodeData(treeData, 0, itemSize, expand);
 
       while (true) {
         const parentMeta = yield;
         for (let i = 0; i < parentMeta.node.children.length; i++) {
-            yield GetNodeData(
-              parentMeta.node.children[i],
-              parentMeta.nestingLevel+1,
-              itemSize
-            )
-          }
-        
+          yield GetNodeData(
+            parentMeta.node.children[i],
+            parentMeta.nestingLevel + 1,
+            itemSize,
+            expand
+          );
+        }
       }
     },
-    [itemSize]
+    [itemSize, expand]
   );
 
   useEffect(() => {
@@ -37,20 +38,22 @@ const TreeMainComponent = ({ itemSize }) => {
   }, [itemSize]);
 
   return (
-    <AutoSizer disableWidth>
-      {({ height }) => (
-        <VariableSizeTree
-          ref={treeDom}
-          itemData={itemSize}
-          treeWalker={treeWalker}
-          height={height}
-          width="100%"
-        
-        >
-          {TreePresenter}
-        </VariableSizeTree>
-      )}
-    </AutoSizer>
+    <React.Fragment>
+      <button onClick={() => setExpand((data) => !data)}>{expand ? "Collapse All": "Expand All"}</button>
+      <AutoSizer disableWidth>
+        {({ height }) => (
+          <VariableSizeTree
+            ref={treeDom}
+            itemData={itemSize}
+            treeWalker={treeWalker}
+            height={height}
+            width="100%"
+          >
+            {TreePresenter}
+          </VariableSizeTree>
+        )}
+      </AutoSizer>
+    </React.Fragment>
   );
 };
 
