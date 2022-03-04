@@ -5,6 +5,7 @@ import TreePresenter from "./TreePresenter";
 import GetNodeData from "./GetNodeData";
 // import { tree } from "./shortDummyData";
 import { tree } from "./dummyData";
+import './style.css';
 
 const TreeMainComponent = ({ itemSize }) => {
   const treeDom = useRef(null);
@@ -40,6 +41,7 @@ const TreeMainComponent = ({ itemSize }) => {
   return (
     <React.Fragment>
       <button onClick={() => setExpand((data) => !data)}>{expand ? "Collapse All": "Expand All"}</button>
+      {/* <div className="tree"> */}
       <AutoSizer disableWidth>
         {({ height }) => (
           <VariableSizeTree
@@ -53,6 +55,7 @@ const TreeMainComponent = ({ itemSize }) => {
           </VariableSizeTree>
         )}
       </AutoSizer>
+      {/* </div> */}
     </React.Fragment>
   );
 };

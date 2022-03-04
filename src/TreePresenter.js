@@ -1,3 +1,5 @@
+import './style.css';
+
 const TreePresenter = ({
   data: { isLeaf, title, nestingLevel, vpItems, id, treeDom },
   height,
@@ -11,21 +13,23 @@ const TreePresenter = ({
   };
   return (
     <div
+      className='list'
       style={{
         ...style,
         alignItems: "center",
         display: "flex",
-        marginLeft: nestingLevel * 30 + (isLeaf ? 48 : 0),
+        marginLeft: nestingLevel * 30,
       }}
     >
+      <div className='item'>
       {!isLeaf && (
         <div>
-          <button type="button" onClick={() => setOpen(!isOpen)} style={{ marginLeft: 10 }}>
+          <button type="button" onClick={() => setOpen(!isOpen)} >
             {isOpen ? "-" : "+"}
           </button>
         </div>
       )}
-      <div style={{ fontFamily: "Courier New" }}>{title}</div>
+      <div>{title}</div>
       {vpItems && (
         <div>
           <button
@@ -37,6 +41,7 @@ const TreePresenter = ({
           </button>
         </div>
       )}
+      </div>
     </div>
   );
 };
