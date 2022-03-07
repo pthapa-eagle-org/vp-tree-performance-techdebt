@@ -1,42 +1,76 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useCallback } from "react";
 const TreePresenter = ({
-  data: { isLeaf, title, nestingLevel, vpItems, id, treeDom },
+  data: { isLeaf, title, nestingLevel, vpItems, id },
   height,
   isOpen,
   style,
-  toggle,
-  setOpen
+  resize,
+  setOpen,
+  treeData: itemSize,
 }) => {
-  const accordHandler = (accordData) => {
-    alert(`${accordData}, was clicked!`);
-  };
+  const canOpen = height <= itemSize;
+  const childrenSize = (vpItems.length + 1) * itemSize;  
+
+  const toggleNodeSize = useCallback(
+    () => resize(canOpen ? height + childrenSize : height - childrenSize, true),
+    [height, resize]
+  );
+
+  // useEffect(() => {
+  //   // Applying resize to root node if it's height is not zero
+  //   if (id === "root" && height !== 0) {
+  //     resize(0, true);
+  //   }
+  // }, [height]);
+
   return (
     <div
       style={{
         ...style,
         alignItems: "center",
-        display: "flex",
+        display: `${isLeaf ? "grid" : "flex"}`,
         marginLeft: nestingLevel * 30 + (isLeaf ? 48 : 0),
+        fontFamily: "Courier New",
       }}
     >
       {!isLeaf && (
         <div>
-          <button type="button" onClick={() => setOpen(!isOpen)} style={{ marginLeft: 10 }}>
+          <button
+            type="button"
+            onClick={() => setOpen(!isOpen)}
+            style={{ marginLeft: 10, marginRight: 10 }}
+          >
             {isOpen ? "-" : "+"}
           </button>
         </div>
       )}
-      <div style={{ fontFamily: "Courier New" }}>{title}</div>
-      {vpItems && (
-        <div>
+      <div>
+        {title}
+        {vpItems && (
           <button
             type="button"
-            onClick={() => accordHandler(id)}
+            onClick={toggleNodeSize}
             style={{ backgroundColor: "lightblue", borderRadius: "50px" }}
           >
-            Accord
+            {canOpen ? "Accord Open" : "Accord Close"}
           </button>
-        </div>
-      )}
+        )}
+      </div>
+     <div
+        style={{
+          marginLeft: nestingLevel * 10,
+          display: "grid",
+          rowGap: "10px"
+        }}
+      >
+        <ul>
+        {!canOpen &&
+          vpItems.map((item) => {
+            return <li>{item.inspection_type}</li>;
+          })}
+          </ul>
+      </div>
     </div>
   );
 };
