@@ -6,13 +6,24 @@ import { Provider } from 'react-redux';
 import store from './store'
 import reportWebVitals from './reportWebVitals';
 
+const App = () => {
+ return(
+   <div>
+  <div style={{ flex: "1 1 0%", minHeight: "100vh" }} >
+    <TreeMainComponent itemSize={30}/>
+    </div>
+    </div>
+ )
+}
+
+export default App;
+
+
 
 ReactDOM.render(
   <Provider store={store}>
   <React.StrictMode>
-  <div style={{ flex: "1 1 0%", minHeight: "100vh" }}>
-    <TreeMainComponent itemSize={30}/>
-    </div>
+   <App />
   </React.StrictMode>
   </Provider>,
   document.getElementById('root')
