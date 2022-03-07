@@ -1,0 +1,11 @@
+.list {
+    padding: 0px 0px 1.1em 0.8em;
+    background: url("images/verLine.png") repeat-y 0px 0px;
+  }
+  
+  .item {
+    background: url("images/horLine.png") no-repeat 1px 23px;
+    padding-left: 0.6em;
+    padding-top: 0.6em;
+    display: flex;
+  }

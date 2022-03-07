@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useCallback } from "react";
+import './style.css';
 const TreePresenter = ({
   data: { isLeaf, title, nestingLevel, vpItems, id },
   height,
@@ -33,6 +34,7 @@ const TreePresenter = ({
         marginLeft: nestingLevel * 30 + (isLeaf ? 48 : 0),
         fontFamily: "Courier New",
       }}
+      className="list"
     >
       {!isLeaf && (
         <div>
@@ -40,6 +42,7 @@ const TreePresenter = ({
             type="button"
             onClick={() => setOpen(!isOpen)}
             style={{ marginLeft: 10, marginRight: 10 }}
+            className="item"
           >
             {isOpen ? "-" : "+"}
           </button>
