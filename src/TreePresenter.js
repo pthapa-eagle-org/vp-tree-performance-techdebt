@@ -1,5 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useCallback } from "react";
+import './style.css';
+
 const TreePresenter = ({
   data: { isLeaf, title, nestingLevel, vpItems, id },
   height,
@@ -17,15 +19,9 @@ const TreePresenter = ({
     [height, resize]
   );
 
-  // useEffect(() => {
-  //   // Applying resize to root node if it's height is not zero
-  //   if (id === "root" && height !== 0) {
-  //     resize(0, true);
-  //   }
-  // }, [height]);
-
   return (
     <div
+      className='list'
       style={{
         ...style,
         alignItems: "center",
@@ -34,6 +30,7 @@ const TreePresenter = ({
         fontFamily: "Courier New",
       }}
     >
+      <div className='item'>
       {!isLeaf && (
         <div>
           <button
@@ -70,6 +67,7 @@ const TreePresenter = ({
             return <li>{item.inspection_type}</li>;
           })}
           </ul>
+      </div>
       </div>
     </div>
   );

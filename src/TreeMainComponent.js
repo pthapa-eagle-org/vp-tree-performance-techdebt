@@ -7,11 +7,8 @@ import GetNodeData from "./GetNodeData";
 import { tree } from "./dummyData";
 
 const TreeMainComponent = ({ itemSize, appendVpCondition }) => {
-  console.log('inside Tree component')
   const treeDom = useRef(null);
   
-  
-
   const treeWalker = useCallback(
     function* treeWalker(refresh) {
       yield GetNodeData(tree, 0, itemSize);
