@@ -30,8 +30,8 @@ const TreePresenter = ({
         ...style,
         alignItems: "center",
         display: `${isLeaf ? "grid" : "flex"}`,
-        marginLeft: nestingLevel * 30 + (isLeaf ? 48 : 0),
-        fontFamily: "Courier New",
+        marginLeft: nestingLevel * 20 + (isLeaf ? 48 : 0),
+        visibility: `${id === "root" && "hidden"}`
       }}
     >
       {!isLeaf && (
