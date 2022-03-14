@@ -10,7 +10,7 @@ const TreePresenter = ({
   treeData: itemSize,
 }) => {
   const canOpen = height <= itemSize;
-  const childrenSize = (vpItems.length + 1) * itemSize;  
+  const childrenSize = vpItems.length * itemSize;  
 
   const toggleNodeSize = useCallback(
     () => resize(canOpen ? height + childrenSize : height - childrenSize, true),
